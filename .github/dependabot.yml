@@ -9,7 +9,7 @@ updates:
       # Check for updates to GitHub Actions every weekday
       interval: "daily"
       
-  - package-ecosystem: "NuGet"
+  - package-ecosystem: "nuget"
     directory: "/"
     schedule:
       # Check for updates to GitHub Actions every weekday
