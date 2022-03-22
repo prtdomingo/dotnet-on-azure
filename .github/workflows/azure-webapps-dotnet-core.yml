@@ -23,7 +23,7 @@ env:
   AZURE_WEBAPP_NAME: web-devops-demo  # set this to the name of your Azure Web App
   AZURE_WEBAPP_PACKAGE_PATH: '.'      # set this to the path to your web app project, defaults to the repository root
   DOTNET_VERSION: '6.x.x'                 # set this to the .NET Core version to use
-  AZURE_WEBAPP_SLOT_NAME: staging
+  AZURE_WEBAPP_URL: https://web-devops-demo.azurewebsites.net/
 
 on:
   push:
@@ -83,3 +83,10 @@ jobs:
           app-name: ${{ env.AZURE_WEBAPP_NAME }}
           publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: ${{ env.AZURE_WEBAPP_PACKAGE_PATH }}
+          
+      - name: OWASP ZAP Scan
+        uses: zaproxy/action-baseline@v0.6.1
+        with:
+          target: ${{ env.AZURE_WEBAPP_URL }}
+          docker_name: owasp/zap2docker-stable
+          
